@@ -80,7 +80,7 @@ public class GameProfileTexturesHandler implements TexturesHandler {
         .iterator()
         .next()
         // TODO: Does this record-access work in <= 1.19.4, where the type is still a class?
-        .value();
+        .getValue();
     } catch (Exception e) {
       return null;
     }

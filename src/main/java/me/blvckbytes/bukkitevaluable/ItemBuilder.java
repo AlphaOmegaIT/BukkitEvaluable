@@ -31,6 +31,7 @@ import me.blvckbytes.bukkitevaluable.textures.TexturesHandler;
 import me.blvckbytes.gpeee.GPEEE;
 import me.blvckbytes.gpeee.Tuple;
 import me.blvckbytes.gpeee.interpreter.IEvaluationEnvironment;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
@@ -328,29 +329,29 @@ public class ItemBuilder implements IItemBuildable {
     //////////////////////////////// Display name ////////////////////////////////
 
     if (name != null)
-      resMeta.setDisplayName(name.asScalar(ScalarType.STRING, environment));
+      resMeta.displayName(name.asScalar(ScalarType.COMPONENT, environment));
 
     /////////////////////////////////// Lore ///////////////////////////////////
 
     if (loreOverride)
-      resMeta.setLore(null);
+      resMeta.lore(null);
 
-    if (loreBlocks.size() > 0) {
+    if (!loreBlocks.isEmpty()) {
       // Get old lore lines to extend, if applicable
-      List<String> lines = resMeta.getLore();
+      List<Component> lines = resMeta.lore();
 
       if (lines == null)
         lines = new ArrayList<>();
 
       // Extend by new lore lines
       for (BukkitEvaluable line : loreBlocks) {
-        for (var lineItem : line.asList(ScalarType.STRING_PRESERVE_NULLS, environment)) {
+        for (var lineItem : line.asList(ScalarType.COMPONENT, environment)) {
           if (lineItem != null)
             lines.add(lineItem);
         }
       }
 
-      resMeta.setLore(lines);
+      resMeta.lore(lines);
     }
 
     /////////////////////////////////// Color //////////////////////////////////
@@ -413,11 +414,10 @@ public class ItemBuilder implements IItemBuildable {
 
     /////////////////////////////// Banner Patterns /////////////////////////////
 
-    if (resMeta instanceof BannerMeta) {
-      BannerMeta bannerMeta = (BannerMeta) resMeta;
+    if (resMeta instanceof BannerMeta bannerMeta) {
 
-      if (patternOverride) {
-        while (bannerMeta.getPatterns().size() > 0)
+        if (patternOverride) {
+        while (!bannerMeta.getPatterns().isEmpty())
           bannerMeta.removePattern(0);
       }
 

@@ -37,6 +37,10 @@ public class ConfigKeeper<T extends AConfigSection> {
       listener.run();
   }
 
+  public T mapSection(String rootSection) throws Exception {
+    return this.configManager.loadConfig(fileName).mapSection(rootSection, rootSectionType);
+  }
+
   private T loadRootSection(boolean initial) throws Exception {
     // Called in ConfigManager's constructor already on startup
     if (!initial)
