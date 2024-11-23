@@ -44,6 +44,7 @@ import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
+import java.nio.file.FileSystem;
 import java.nio.file.*;
 import java.util.*;
 import java.util.logging.Level;
@@ -321,7 +322,7 @@ public class ConfigManager implements IConfigManager, IValueConverterRegistry {
     var inputArgument = configHeader.substring(inputArgumentBegin, inputMarkerIndex + 1);
 
     if (!inputArgument.endsWith(".txt")) {
-      logger.warning("Invalid pre-processor input in header-comment of file " + file + " with value \"" + inputArgument + "\"");
+      //disabled logger.warning("Invalid pre-processor input in header-comment of file " + file + " with value \"" + inputArgument + "\"");
       return null;
     }
 
@@ -393,8 +394,7 @@ public class ConfigManager implements IConfigManager, IValueConverterRegistry {
         logger.info("Saved read-only pre-processed version of " + file + " at " + outputFile);
       }
 
-      else
-        logger.warning("Found no usable pre-processor input in header-comment of " + file);
+      //else logger.warning("Found no usable pre-processor input in header-comment of " + file);
 
       Object lutValue = config.get("lut");
       Map<?, ?> lut = lutValue instanceof Map ? (Map<?, ?>) lutValue : new HashMap<>();
