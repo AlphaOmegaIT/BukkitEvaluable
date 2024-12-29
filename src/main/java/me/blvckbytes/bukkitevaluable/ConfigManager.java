@@ -40,6 +40,7 @@ import me.blvckbytes.gpeee.functions.AExpressionFunction;
 import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 import me.blvckbytes.gpeee.interpreter.IEvaluationEnvironment;
 import me.blvckbytes.gpeee.parser.expression.AExpression;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.Nullable;
 
@@ -69,7 +70,29 @@ public class ConfigManager implements IConfigManager, IValueConverterRegistry {
   private final File folder;
 
   private final PreProcessor preProcessor;
-
+  
+  public ConfigManager(Logger logger, Path path, String folderName) throws Exception {
+    this.mapperByFileName = new HashMap<>();
+    this.preProcessorInputByFileName = new HashMap<>();
+    
+    this.plugin = null;
+    this.logger = logger;
+    this.folderName = folderName.charAt(0) == '/' ? folderName : ("/" + folderName);
+    this.preProcessor = new PreProcessor();
+    
+    this.folder = new File(path.toFile(), folderName);
+    
+    if (!this.folder.exists()) {
+      if (!this.folder.mkdirs())
+        throw new IllegalStateException("Could not create directories for " + this.folder);
+    }
+    
+    this.base64ToSkinUrlFunction = new Base64ToSkinUrlFunction();
+    this.skinUrlToBase64Function = new SkinUrlToBase64Function();
+    
+    loadAndPossiblyMigrateInputFiles();
+  }
+  
   public ConfigManager(Plugin plugin, String folderName) throws Exception {
     this.mapperByFileName = new HashMap<>();
     this.preProcessorInputByFileName = new HashMap<>();
