@@ -55,7 +55,7 @@ public class CommandErrorMessagesSection extends AConfigSection {
   public @Nullable Object defaultFor(Field field) {
     if (field.getType() == BukkitEvaluable.class)
       return BukkitEvaluable.of(
-	      MiniMessage.miniMessage().deserialize("<dark_red>ERROR:</dark_red> <red>Unconfigured message for field:</red> <gray>" + field.getName() + "</gray>")
+	      "<dark_red>ERROR:</dark_red> <red>Unconfigured message for field:</red> <gray>" + field.getName() + "</gray>"
       );
 
     return null;

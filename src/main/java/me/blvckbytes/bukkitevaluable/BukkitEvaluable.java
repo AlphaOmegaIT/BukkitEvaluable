@@ -65,7 +65,7 @@ public class BukkitEvaluable extends ConfigValue {
   }
 
   public Component asComponent(IEvaluationEnvironment environment) {
-    return MiniMessage.miniMessage().deserialize(asString(environment));
+    return MiniMessage.miniMessage().deserialize(ColorUtil.convertLegacyColorsToMiniMessage(asString(environment)));
   }
 
   public @Nullable XMaterial asXMaterial(IEvaluationEnvironment environment) {
@@ -201,7 +201,7 @@ public class BukkitEvaluable extends ConfigValue {
   //=========================================================================//
 
   private String asString(IEvaluationEnvironment environment) {
-    return asScalar(ScalarType.STRING, environment);
+    return ColorUtil.convertMiniMessageToLegacyColors(asScalar(ScalarType.STRING, environment));
   }
 
   //=========================================================================//
