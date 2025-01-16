@@ -190,7 +190,7 @@ public class BukkitEvaluable extends ConfigValue {
     T scalar = super.interpretScalar(input, type, env);
 
     if (scalar instanceof String)
-      scalar = (T) ChatColor.translateAlternateColorCodes('&', (String) scalar);
+      scalar = (T) ColorUtil.convertMiniMessageToLegacyColors(ChatColor.translateAlternateColorCodes('&', (String) scalar));
 
     return scalar;
   }

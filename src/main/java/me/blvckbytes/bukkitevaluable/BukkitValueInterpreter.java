@@ -36,7 +36,7 @@ public class BukkitValueInterpreter extends StandardValueInterpreter {
 
   @Override
   public String asString(@Nullable Object value) {
-    return ChatColor.translateAlternateColorCodes('&', super.asString(value));
+    return ColorUtil.convertLegacyColorsToMiniMessage(ChatColor.translateAlternateColorCodes('&', super.asString(value)));
   }
 
   public static BukkitValueInterpreter getInstance() {
