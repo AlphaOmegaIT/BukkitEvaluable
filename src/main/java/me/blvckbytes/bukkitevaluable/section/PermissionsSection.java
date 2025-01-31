@@ -24,8 +24,8 @@
 
 package me.blvckbytes.bukkitevaluable.section;
 
-import me.blvckbytes.bbconfigmapper.sections.CSAlways;
 import me.blvckbytes.bbconfigmapper.sections.AConfigSection;
+import me.blvckbytes.bbconfigmapper.sections.CSAlways;
 import me.blvckbytes.bukkitevaluable.BukkitEvaluable;
 import me.blvckbytes.gpeee.interpreter.EvaluationEnvironmentBuilder;
 import org.bukkit.entity.Player;
@@ -48,7 +48,7 @@ public class PermissionsSection extends AConfigSection {
   }
 
   public void sendMissingMessage(Player player, IPermissionNode node) {
-    player.sendMessage(missingMessage.stringify(
+    player.sendMessage(missingMessage.componentify(
       new EvaluationEnvironmentBuilder()
         .withStaticVariable("permission", resolveNode(node))
         .build()

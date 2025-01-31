@@ -44,7 +44,6 @@ import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class BukkitEvaluable extends ConfigValue {
 
@@ -174,6 +173,10 @@ public class BukkitEvaluable extends ConfigValue {
       joiner.add(evaluable.asScalar(ScalarType.STRING, environment));
 
     return joiner.toString();
+  }
+
+  public Component componentify(IEvaluationEnvironment environment, BukkitEvaluable... others) {
+    return MiniMessage.miniMessage().deserialize(stringify(environment, others));
   }
 
   public String stringify(BukkitEvaluable... others) {
